@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   }
   
   scope module: :public do
-    get 'homes/top' => 'homes#top', as: 'top'
-    get 'homes/about' => 'homes#about', as: 'about'
+    get 'homes/top' => 'homes#top', as: 'top' 
+    get 'homes/about' => 'homes#about', as: 'about'  #public_about_path
     resources :items,        :only => [:index, :show]
     resources :customers,    :only => [:show, :edit, :update]
     get 'customers/exit' => 'customers#exit', as: 'exit'
@@ -26,12 +26,12 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
-    get 'homes/about' => 'homes#about', as: 'about'#admin_about_path
-    resources :items,     :except => :destroy
     resources :genres,    :only => [:index, :create, :edit, :update]
     resources :customers, :only => [:index, :show, :edit, :update]
     resources :order,     :only => [:show, :update]
     resources :order_details, :only => [:update]
+    resources :items,     :except => [:destroy]
+    get 'homes/top' => 'homes#top', as: 'top' 
   
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

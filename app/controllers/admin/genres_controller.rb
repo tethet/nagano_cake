@@ -1,4 +1,6 @@
 class Admin::GenresController < ApplicationController
+  layout 'admin'
+  
   def index
   end
   
@@ -9,5 +11,5 @@ class Admin::GenresController < ApplicationController
   end
   
   def update
-    
+  end
 end

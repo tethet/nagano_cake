@@ -1,0 +1,24 @@
+<h2>商品一覧</h2>
+
+<%= link_to new_admin_item,class: 'btn btn-outline-secondary btn-block' do %>
+<i class="fas fa-plus-circle"></i>
+<% end %>
+
+<% @item.each do |item| %>
+<p>商品ID</p>
+<span><%= item.id %></span> <!--ここがあっているかわからない;;-->
+
+<p>商品名</p>
+<span><%= item.name %></span>
+
+<p>税抜価格</p>
+<span><%= item.price_with_tax %></span>
+
+<p>ジャンル</p>
+<span><%= item.genre_id %></span>
+
+<p>ステータス</p>
+<span></span> <!--ここがわからない;;-->
+<% end %>
+
+<%= paginate item %>

@@ -1,12 +1,14 @@
 <h2>商品一覧</h2>
 
-<%= link_to new_admin_item,class: 'btn btn-outline-secondary btn-block' do %>
+<%= link_to new_admin_item_path,class: 'btn btn-outline-secondary btn-block' do %>
 <i class="fas fa-plus-circle"></i>
 <% end %>
 
 <% @item.each do |item| %>
 <p>商品ID</p>
-<span><%= item.id %></span> <!--ここがあっているかわからない;;-->
+<span>
+  <%= link_to item.id, admin_item_path(item.id) %>
+</span> <!--ここがあっているかわからない;;-->
 
 <p>商品名</p>
 <span><%= item.name %></span>
@@ -18,7 +20,13 @@
 <span><%= item.genre_id %></span>
 
 <p>ステータス</p>
-<span></span> <!--ここがわからない;;-->
+<span>
+  <% if item.item_status? %>
+  <p>販売中</p>
+  <% else %>
+  <p>販売停止中</p>
+  <% end %>
+</span> <!--ここがわからない;;-->
 <% end %>
 
-<%= paginate item %>
+<%= paginate @item %>

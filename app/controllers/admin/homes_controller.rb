@@ -2,6 +2,6 @@ class Admin::HomesController < ApplicationController
   layout 'admin'
   
   def top
-    @order = Order.all
+    @order = Order.page(params[:page])
   end
 end

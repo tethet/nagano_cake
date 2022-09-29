@@ -12,5 +12,5 @@ class Public::CustomersController < ApplicationController
   end
   
   def period
-    
+  end
 end

@@ -1,0 +1,47 @@
+<h2>注文履歴詳細</h2>
+<% @order do |order| %>
+<p><strong>購入者</strong></p>
+<%= order.name %>
+
+<p><strong>注文日</strong></p>
+<%= order.created_at %>
+
+<p><strong>配送先</strong></p>
+<%= order.address %>
+
+<p><strong>支払方法</strong></p>
+<%= order.order_status %>
+
+<p><strong>注文ステータス</strong></p>
+<%= order.select :order_id, options_from_collection_for_select(order.all, :order_status) %>
+
+<% end %>
+<%= form_with model: @order do |order| %>
+<%= order.submit '更新' %>
+<% end %>
+
+<% form_with model: @order.each do |order| %>
+<p><strong>商品名</strong></p>
+<%= order.name %>
+
+<p><strong>単価（税込）</strong></p>
+<%= order.total_payment %>
+
+<p><strong>数量</strong></p>
+<%= order.quantity %>
+
+<p><strong>小計</strong></p>
+<%= (order.total_payment * order.quantity) %>
+
+<p><strong>制作ステータス</strong></p>
+<%= order.select :order_detail_id, options_from_collection_for_select(order_detail.all, :makeing_status) %>
+
+<%= order.submit '更新' %>
+
+<% end %>
+
+<p><strong>商品合計</strong></p>
+
+<p><strong>送料</strong></p>
+
+<p><strong>請求金額合計</strong></p>

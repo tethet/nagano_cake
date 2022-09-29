@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     patch 'customers/period' => 'customers#period', as: 'period'
     resources :cart_items,   :only => [:index, :update, :create, :destroy]
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all' #destroy_all_path
-    resources :order,        :only => [:new, :index, :show]
+    resources :orders,        :only => [:new, :index, :show]
     post 'order/confirmation' => 'odrder#confirmation', as: 'confirmation'
     get 'order/completion' => 'odrder#completion', as: 'completion'
     resources :deliveries,   :except => [:new, :show]

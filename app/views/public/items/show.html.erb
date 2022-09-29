@@ -1,0 +1,13 @@
+<%= image_tag @item.get_image(100,100) %>
+
+<span><%= @item.name %></span>
+
+<span><%= @item.explanation %></span>
+
+<p>¥</p><%= (@item.price_without_tax * 1.1).floor %> <h5>(税込)</h5>
+
+<%= form_with model: @cart_item, url: cart_items_path,method: :post do |f| %>
+<%= f.select :amount, *[1..10] %>
+
+<%= f.submit "カートに入れる" %>
+<% end %> 

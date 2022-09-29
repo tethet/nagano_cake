@@ -8,13 +8,13 @@
 <p>商品ID</p>
 <span>
   <%= link_to item.id, admin_item_path(item.id) %>
-</span> <!--ここがあっているかわからない;;-->
+</span> 
 
 <p>商品名</p>
 <span><%= item.name %></span>
 
 <p>税抜価格</p>
-<span><%= item.price_with_tax %></span>
+<span><%= item.price_without_tax %></span>
 
 <p>ジャンル</p>
 <span><%= item.genre_id %></span>
@@ -26,7 +26,7 @@
   <% else %>
   <p>販売停止中</p>
   <% end %>
-</span> <!--ここがわからない;;-->
+</span> 
 <% end %>
 
 <%= paginate @item %>

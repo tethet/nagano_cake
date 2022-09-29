@@ -1,6 +1,6 @@
 <h2>商品詳細</h2>
 
-<%= @item.image %>
+<%= image_tag @item.get_image(100,100) %>
 
 <p>商品名</p>
 <span><%= @item.name %></span>
@@ -9,19 +9,20 @@
 <span><%= @item.explanation %></span>
 
 <p>ジャンル</p>
+<%= f.select :genre_id, options_from_collection_for_select(genre.all, :name)
 
 <p>税込価格</p>
-<%= @item.price_without_tax %>
-<p>円</p>
-<!-- ここの書き方がわからない-->
+
+<%= @item.with_tax_price %> (<%= @item.price_without_tax %>)
+円
 
 <p>販売ステータス</p>
 <span>
-  <% if item.item_status? %>
+  <% if @item.item_status? %>
   <p>販売中</p>
   <% else %>
   <p>販売停止中</p>
   <% end %>
 </span>
 
-<%= link_to "編集する", edit_admin_item_path(item.id) %>
+<%= link_to "編集する", edit_admin_item_path(@item.id) %>

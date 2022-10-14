@@ -1,12 +1,14 @@
 <h2><strong>商品一覧</strong></h2>
-<%= @item do |item| %>
-<p>(全</p>
-<p><%= item.count %></p>
-<p>件)</p>
-<% end %>
 
-<%= @item.each do |item| %>
-<%= item.image %>
+<p>(全
+<%= @item.count %>
+件)</p>
+
+
+<% @item.each do |item| %>
+ <%= link_to item_path(item.id) do %>
+    <%= image_tag item.image %>
+ <% end %>
 <%= item.price_without_tax %>
 <% end %>
 

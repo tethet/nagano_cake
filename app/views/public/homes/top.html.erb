@@ -6,6 +6,8 @@
     
 <h1><string>新着商品</string></h1>
 <% @item.each do |item| %>
-<%= image_tag item.get_image(100,100) %>
+<%= link_to item_path(item.id) do %> 
+<%= image_tag item.get_image(100,100)  %>
+<% end %>
 <% end %>
 <%= link_to "全ての商品を見る >", items_path %>

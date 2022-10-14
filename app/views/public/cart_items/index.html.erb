@@ -1,15 +1,15 @@
 <h2>ショッピングカート</h2>
-<% @cart_item each do |cart_item| %>
+<% @cart_items.each do |cart_item| %>
 
 <p>商品名</p>
-<%= image_tag @item.get_image(100,100) %>
-<%= @item.name %>
+<%= image_tag cart_item.item.get_image(100,100) %>
+<%= cart_item.item.name %>
 
 <p>単価（税込）</p>
-<%= @item.with_tax_price %>
+<%= cart_item.item.with_tax_price %>
 
 <p>数量</p>
-<%= form_with model: @cart_item, url: cart_items_path,method: :put do |cart_item| %>
+<%= form_with model: cart_item, url: cart_items_path,method: :put do |cart_item| %>
 <%= cart_item.select :amount, *[1..10] %>
 <%= cart_item.submit "変更" %>
 <% end %>
@@ -17,11 +17,11 @@
 <p>小計</p>
 <%= cart_item.sub_total %>
 
-<%= link_to "削除する", cart_item_path(@item.id), method: :delete %>
+<%= link_to "削除する", cart_item_path(cart_item.id), method: :delete %>
 
 <% end %>
 
-<%= link_to "カートを空にする", destroy_all, method: :delete %>
+<%= link_to "カートを空にする", destroy_all_path, method: :delete %>
 <p>合計金額</p>
 <% @cart_items.each do |cart_item| %>
 <% @total = @total + cart_item.sub_total %>

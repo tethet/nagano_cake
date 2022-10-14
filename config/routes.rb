@@ -1,29 +1,44 @@
 Rails.application.routes.draw do
-  devise_for :customers,skip: [:passwords], controllres: {
-    registration: "public/registration",
-    sessions: 'public/sessions'
-  }
+  # devise_for :customers,skip: [:passwords], controllres: {
+  #   registration: "public/registration",
+  #   sessions: 'public/sessions'
+  # devise_for :customers,skip: [:passwords, :registrations] 
+  # as :customer do 
+  #     get 'customers/sign_up', to: 'public/registrations#new', as: :new_customer_registration
+  #     post 'customers/sign_up', to: 'public/registrations#create', as: :customer_registration
+  #   end 
+  
+  
+   # devise_for :admins, skip: [:registrations, :passwords], controllres: {
+  #   #registration: "admin/registration",
+  #   sessions: "admin/sessions"
+  # }
+  devise_for :admin,skip: [:registrations, :passwords], controllers: {
+  sessions: "admin/sessions"
+}
   
   scope module: :public do
+    devise_for :customers,skip: [:passwords, :registrations] 
+      as :customer do 
+      get 'customers/sign_up', to: 'registrations#new', as: :new_customer_registration
+      post 'customers/sign_up', to: 'registrations#create', as: :customer_registration
+    end 
     get 'homes/top' => 'homes#top', as: 'top' 
     get 'homes/about' => 'homes#about', as: 'about'  #public_about_path
     resources :items,        :only => [:index, :show]
-    resources :customers,    :only => [:show, :edit, :update]
     get 'customers/exit' => 'customers#exit', as: 'exit'
     patch 'customers/period' => 'customers#period', as: 'period'
-    resources :cart_items,   :only => [:index, :update, :create, :destroy]
+    resources :customers,    :only => [:show, :edit, :update]
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all' #destroy_all_path
-    resources :orders,        :only => [:new, :index, :show]
-    post 'order/confirmation' => 'odrder#confirmation', as: 'confirmation'
-    get 'order/completion' => 'odrder#completion', as: 'completion'
+    resources :cart_items,   :only => [:index, :update, :create, :destroy]
+    post 'orders/confirmation' => 'orders#confirmation', as: 'confirmation'
+    get 'orders/completion' => 'orders#completion', as: 'completion'
+    resources :orders,        :only => [:new, :index, :show, :create]
     resources :deliveries,   :except => [:new, :show]
     
   end
   
-  devise_for :admins, skip: [:registrations, :passwords], controllres: {
-    registration: "admin/registration",
-    sessions: "admin/sessions"
-  }
+ 
   
   namespace :admin do
     resources :genres,    :only => [:index, :create, :edit, :update]

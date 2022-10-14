@@ -15,7 +15,7 @@
       <h1>長野ケーキ屋</h1>
      <% if admin_signed_in? %>
       <li>
-        <%= link_to "商品一覧" ,items_path %>
+        <%= link_to "商品一覧" ,admin_items_path %>
       </li>
       
       <li>
@@ -28,10 +28,6 @@
       
        <li>
         <%= link_to "ジャンル一覧" ,admin_genres_path %>
-      </li>
-      
-      <li>
-        <%= link_to "About" ,about_path %>
       </li>
       
       <li>

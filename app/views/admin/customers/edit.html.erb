@@ -1,10 +1,10 @@
 <%= form_with model: @customer,url: admin_customer_path(@customer.id) do |f| %>
 <h2>
-<%= customer.first_name + customer.last_name %>
+<%= @customer.first_name %> <%= @customer.last_name %>
 さんの<strong>会員情報編集</strong></h2>
 
 <p>会員ID</p>
-<%= customer.id %>
+<%= @customer.id %>
 <p>氏名</p>
 <%= f.text_field :last_name %>
 <%= f.text_field :first_name %>

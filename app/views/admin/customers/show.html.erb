@@ -1,26 +1,25 @@
-<%= @customer do |customer| %>
 <h2>
-<%= customer.first_name, customer.last_name %>
+<%= @customer.first_name%> <%= @customer.last_name %>
 さんの<strong>会員詳細</strong></h2>
 
 <p>会員ID</p>
-<%= customer.id %>
+<%= @customer.id %>
 
 <p>氏名</p>
-<%= customer.last_name %>
-<%= customer.first_name %>
+<%= @customer.last_name %>
+<%= @customer.first_name %>
 <p>フリガナ</p>
-<%= customer.last_name_kana %>
-<%= customer.first_name_kana %>
+<%= @customer.last_name_kana %>
+<%= @customer.first_name_kana %>
 
 <p>郵便番号</p>
-<%= customer.postal_code %>
+<%= @customer.postal_code %>
 <p>住所</p>
-<%= customer.address %>
+<%= @customer.address %>
 <p>電話番号</p>
-<%= customer.telephone_number %>
+<%= @customer.telephone_number %>
 <p>メールアドレス</p>
-<%= customer.email %>
+<%= @customer.email %>
 <p>会員ステータス</p>
 <span>
   <% if @customer.is_deleted? %>
@@ -29,6 +28,5 @@
   <p>退会</p>
   <% end %>
 </span>
-<%= link_to "編集する", edit_admin_customer_path(customer.id) %>
-<%= link_to "注文履歴一覧を見る", admin_order_path(customer.id) %>
-<% end %>
+<%= link_to "編集する", edit_admin_customer_path(@customer.id) %>
+<%= link_to "注文履歴一覧を見る", admin_top_path %>

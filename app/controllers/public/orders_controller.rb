@@ -75,7 +75,7 @@ class Public::OrdersController < ApplicationController
   end
   
   def move_to_signed_in
-    unless admin_signed_in?
+    unless customer_signed_in?
     redirect_to  top_path
 
     end

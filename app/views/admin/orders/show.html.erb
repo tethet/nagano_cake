@@ -10,10 +10,10 @@
 <%= @order.address %>
 
 <p><strong>支払方法</strong></p>
-<%= @order.order_status %>
+<%= @order.payment_method_i18n %>
 
 <p><strong>注文ステータス</strong></p>
-<%= form_with model: @order do |order| %>
+<%= form_with model: @order, url: admin_order_path(@order.id) do |order| %>
 <%= order.select :order_status, Order.order_statuses_i18n.invert %>
 <!--Order.order_statuses_i18n.invert-->
 <!-- => {"入金待ち"=>"waiting_for_payment", "入金確認"=>"payment_confirmation", " 製作中"=>"production", "発送準備中"=>"shipping_preparation", "発送済み"=>"sent"} -->
@@ -33,17 +33,25 @@
 
 <p><strong>小計</strong></p>
 <%= (order_detail.purchase_price * order_detail.quantity) %>
-<%= form_with model: @order.order_details do |order_detail| %>
+<%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id) do |f| %>
 <p><strong>制作ステータス</strong></p>
-<%= order_detail.select :makeing_status, OrderDetail.makeing_statuses_i18n.invert %>
+<%= f.select :makeing_status, OrderDetail.makeing_statuses_i18n.invert %>
 
-<%= order_detail.submit '更新' %>
+<%= f.submit '更新' %>
 
 <% end %>
 <% end %>
 
 <p><strong>商品合計</strong></p>
+<% @total = 0 %>
+<% @order.order_details.each do |order_detail| %>
+<% @total = @total + (order_detail.quantity * order_detail.with_tax_price) %>
+<% end %>
+<%= @total %>
 
 <p><strong>送料</strong></p>
+<% @postage = 800 %>
+<%= @postage %>
 
 <p><strong>請求金額合計</strong></p>
+<%= @postage + @total %>

@@ -1,20 +1,23 @@
 <h2>注文履歴一覧</h2>
-<% @order.each do |order| %>
+<% @orders.each do |order| %>
 <p>購入日時</p>
 <span>
-  <%= link_to @orders.created_at.strftime('%Y/%m/%d'), order_path(order.id) %>
+  <%= link_to order.created_at.strftime('%Y/%m/%d'), admin_order_path(order.id) %>
 </span> 
 
 <p>購入者</p>
 <%= order.name %>
 
 <p>注文個数</p>
-<%= order.quantity %>
-
+<% total = 0 %>
+<% order.order_details.each do |order_detail| %>
+<% total += order_detail.quantity %>
+<% end %>
+<%= total %>
 
 <p>注文ステータス</p>
-<%= Order.payment_methods_i18n[:orders_status] %>
-
-<%= paginate @order %>
+<%= order.order_status_i18n %>
 
 <% end %>
+
+<%= paginate @orders %>

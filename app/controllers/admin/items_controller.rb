@@ -1,5 +1,6 @@
 class Admin::ItemsController < ApplicationController
   layout 'admin'
+  before_action :move_to_signed_in
   
   def index
     @item = Item.page(params[:page])
@@ -35,6 +36,13 @@ private
 
   def item_params
     params.require(:item).permit(:name, :explanation, :price_without_tax, :item_status, :image, :genre_id)
+  end
+  
+  def move_to_signed_in
+    unless admin_signed_in?
+    redirect_to  admin_session_path
+
+    end
   end
  
 

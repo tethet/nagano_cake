@@ -1,4 +1,6 @@
 class Public::CartItemsController < ApplicationController
+  before_action :move_to_signed_in
+  
   def index
      @customer = current_customer
      @cart_items = @customer.cart_items
@@ -7,9 +9,8 @@ class Public::CartItemsController < ApplicationController
   end
   
   def update
-     @customer = current_customer
-     @cart_item = @customer.cart_items
-     @cart_item.update
+     @cart_item = CartItem.find(params[:id])
+     @cart_item.update(cart_item_params)
      redirect_to cart_items_path
   end
   
@@ -36,5 +37,12 @@ class Public::CartItemsController < ApplicationController
   private
   def cart_item_params
     params.require(:cart_item).permit(:customer_id, :amount, :item_id)
+  end
+  
+  def move_to_signed_in
+    unless admin_signed_in?
+    redirect_to  top_path
+
+    end
   end
 end

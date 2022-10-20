@@ -1,5 +1,8 @@
 class Admin::CustomersController < ApplicationController
   layout 'admin' 
+  before_action :move_to_signed_in
+  
+  
   def index
     @customer = Customer.page(params[:page])
   end
@@ -22,6 +25,13 @@ class Admin::CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:email, :last_name, :first_name,  :last_name_kana, 
                                      :first_name_kana,:postal_code, :address, :telephone_number)
+  end
+  
+  def move_to_signed_in
+    unless admin_signed_in?
+    redirect_to  admin_session_path
+
+    end
   end
 
 end

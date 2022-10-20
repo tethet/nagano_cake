@@ -1,43 +1,45 @@
 <h2>注文履歴詳細</h2>
-<% @order do |order| %>
+
 <p><strong>購入者</strong></p>
-<%= order.name %>
+<%= @order.name %>
 
 <p><strong>注文日</strong></p>
-<%= order.created_at %>
+<%= @order.created_at %>
 
 <p><strong>配送先</strong></p>
-<%= order.address %>
+<%= @order.address %>
 
 <p><strong>支払方法</strong></p>
-<%= order.order_status %>
+<%= @order.order_status %>
 
 <p><strong>注文ステータス</strong></p>
-<%= order.select :order_id, options_from_collection_for_select(order.all, :order_status) %>
-
-<% end %>
 <%= form_with model: @order do |order| %>
+<%= order.select :order_status, Order.order_statuses_i18n.invert %>
+<!--Order.order_statuses_i18n.invert-->
+<!-- => {"入金待ち"=>"waiting_for_payment", "入金確認"=>"payment_confirmation", " 製作中"=>"production", "発送準備中"=>"shipping_preparation", "発送済み"=>"sent"} -->
+
 <%= order.submit '更新' %>
 <% end %>
 
-<% form_with model: @order.each do |order| %>
+<% @order.order_details.each do |order_detail| %>
 <p><strong>商品名</strong></p>
-<%= order.name %>
+<%= order_detail.item.name %>
 
 <p><strong>単価（税込）</strong></p>
-<%= order.total_payment %>
+<%= order_detail.purchase_price %>
 
 <p><strong>数量</strong></p>
-<%= order.quantity %>
+<%= order_detail.quantity %>
 
 <p><strong>小計</strong></p>
-<%= (order.total_payment * order.quantity) %>
-
+<%= (order_detail.purchase_price * order_detail.quantity) %>
+<%= form_with model: @order.order_details do |order_detail| %>
 <p><strong>制作ステータス</strong></p>
-<%= order.select :order_detail_id, options_from_collection_for_select(order_detail.all, :makeing_status) %>
+<%= order_detail.select :makeing_status, OrderDetail.makeing_statuses_i18n.invert %>
 
-<%= order.submit '更新' %>
+<%= order_detail.submit '更新' %>
 
+<% end %>
 <% end %>
 
 <p><strong>商品合計</strong></p>

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     post 'orders/confirmation' => 'orders#confirmation', as: 'confirmation'
     get 'orders/completion' => 'orders#completion', as: 'completion'
     resources :orders,        :only => [:new, :index, :show, :create]
-    resources :deliveries,   :except => [:new, :show]
+    resources :addresses,   :except => [:new, :show]
     
   end
   
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :genres,    :only => [:index, :create, :edit, :update]
     resources :customers, :only => [:index, :show, :edit, :update]
-    resources :order,     :only => [:show, :update]
+    resources :orders,     :only => [:show, :update]
     resources :order_details, :only => [:update]
     resources :items,     :except => [:destroy]
     get 'homes/top' => 'homes#top', as: 'top' 
